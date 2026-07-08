@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>さとみさん、お誕生日おめでとうございます</title>
+  <meta name="description" content="日本各地から届いた、さとみさんへのお祝いメッセージ。">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #32251f;
+      --muted: #735f56;
+      --paper: #fffaf4;
+      --line: rgba(92, 64, 48, .16);
+      --accent: #e9506d;
+      --accent-2: #f7a45f;
+      --shadow: 0 24px 70px rgba(84, 45, 32, .18);
+      --radius: 22px;
+      font-family: "Hiragino Sans", "Yu Gothic", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 214, 136, .54), transparent 30vw),
+        radial-gradient(circle at 90% 0%, rgba(255, 146, 168, .36), transparent 34vw),
+        linear-gradient(135deg, #fff7ec 0%, #fffaf7 46%, #fff0f4 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page-shell {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .page-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .5) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .5), transparent 72%);
+    }
+
+    .petals {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .petals span {
+      position: absolute;
+      top: -10vh;
+      width: 10px;
+      height: 16px;
+      border-radius: 10px 10px 10px 2px;
+      background: rgba(233, 80, 109, .42);
+      animation: fall linear infinite;
+      transform: rotate(20deg);
+    }
+
+    .petals span:nth-child(1) { left: 8%; animation-duration: 13s; animation-delay: -4s; }
+    .petals span:nth-child(2) { left: 18%; animation-duration: 18s; animation-delay: -10s; background: rgba(247, 164, 95, .42); }
+    .petals span:nth-child(3) { left: 31%; animation-duration: 15s; animation-delay: -7s; }
+    .petals span:nth-child(4) { left: 44%; animation-duration: 20s; animation-delay: -12s; background: rgba(255, 205, 101, .46); }
+    .petals span:nth-child(5) { left: 58%; animation-duration: 14s; animation-delay: -3s; }
+    .petals span:nth-child(6) { left: 72%; animation-duration: 17s; animation-delay: -9s; background: rgba(247, 164, 95, .38); }
+    .petals span:nth-child(7) { left: 86%; animation-duration: 16s; animation-delay: -6s; }
+    .petals span:nth-child(8) { left: 96%; animation-duration: 21s; animation-delay: -14s; background: rgba(255, 205, 101, .42); }
+
+    @keyframes fall {
+      0% { transform: translate3d(0, -12vh, 0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      50% { transform: translate3d(36px, 50vh, 0) rotate(170deg); }
+      100% { transform: translate3d(-28px, 112vh, 0) rotate(340deg); opacity: 0; }
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      align-items: center;
+      gap: 34px;
+      padding: 32px 0;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, .98fr);
+      gap: clamp(24px, 5vw, 58px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      margin: 0 0 18px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .62);
+      color: #8a4d35;
+      font-size: 13px;
+      letter-spacing: .04em;
+      backdrop-filter: blur(12px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 86px);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 2.4vw, 22px);
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .primary-link,
+    .ghost-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+
+    .primary-link {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 14px 28px rgba(233, 80, 109, .28);
+    }
+
+    .ghost-link {
+      color: var(--ink);
+      background: rgba(255, 255, 255, .68);
+      border: 1px solid var(--line);
+    }
+
+    .primary-link:hover,
+    .ghost-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(86, 50, 34, .16);
+    }
+
+    .postcard-stack {
+      position: relative;
+      min-height: 560px;
+      perspective: 1400px;
+    }
+
+    .postcard {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(255, 255, 255, .92), transparent 36%),
+        linear-gradient(135deg, #fff6ec, #f2d8ca);
+      box-shadow: var(--shadow);
+      transform: rotate(var(--tilt)) translateY(var(--lift));
+      transition: transform .5s ease;
+    }
+
+    .postcard:hover {
+      transform: rotate(calc(var(--tilt) / 2)) translateY(calc(var(--lift) - 8px));
+    }
+
+    .postcard.back {
+      --tilt: -7deg;
+      --lift: 26px;
+      inset: 32px 36px 12px 8px;
+      opacity: .74;
+      filter: saturate(.9);
+    }
+
+    .postcard.front {
+      --tilt: 3deg;
+      --lift: 0px;
+      inset: 0 0 44px 42px;
+    }
+
+    .postcard img {
+      width: auto;
+      height: auto;
+      max-width: min(78%, 430px);
+      max-height: 330px;
+      object-fit: contain;
+      display: block;
+      border: 9px solid rgba(255, 255, 255, .84);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .7);
+      box-shadow: 0 18px 38px rgba(61, 34, 24, .18);
+    }
+
+    .postcard-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, .92);
+    }
+
+    .postcard-label strong {
+      font-size: 21px;
+    }
+
+    .postcard-label span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      margin: 12px 0 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.18;
+    }
+
+    .section-head p {
+      max-width: 740px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .journey {
+      padding: 32px 0 76px;
+    }
+
+    .region-tabs {
+      position: sticky;
+      top: 12px;
+      z-index: 4;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px;
+      margin: 0 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 250, 244, .78);
+      backdrop-filter: blur(18px);
+      scrollbar-width: none;
+      box-shadow: 0 14px 40px rgba(84, 45, 32, .08);
+    }
+
+    .region-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .region-tab {
+      flex: 0 0 auto;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: color .25s ease, background .25s ease, transform .25s ease;
+    }
+
+    .region-tab:hover {
+      transform: translateY(-1px);
+      color: var(--ink);
+    }
+
+    .region-tab.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 20px rgba(233, 80, 109, .22);
+    }
+
+    .message-stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(320px, .94fr);
+      min-height: 620px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .82);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .66);
+      box-shadow: var(--shadow);
+    }
+
+    .photo-panel {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 620px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(255, 255, 255, .8), transparent 30%),
+        linear-gradient(135deg, #fff4ea, #f0d6c6 48%, #d7b7a6);
+    }
+
+    .photo-panel img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: auto;
+      height: auto;
+      max-width: min(78%, 620px);
+      max-height: min(72%, 460px);
+      object-fit: contain;
+      border: 10px solid rgba(255, 255, 255, .86);
+      border-radius: 24px;
+      opacity: 0;
+      box-shadow: 0 24px 54px rgba(61, 34, 24, .24);
+      transform: translate(-50%, -48%) scale(.98);
+      transition: opacity .52s ease, transform .8s ease;
+    }
+
+    .photo-panel img.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .photo-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(45, 25, 20, .3), transparent 46%),
+        linear-gradient(135deg, rgba(255, 255, 255, .16), transparent 38%);
+    }
+
+    .map-chip {
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      z-index: 2;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: calc(100% - 44px);
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 18px;
+      color: #fff;
+      background: rgba(40, 25, 20, .28);
+      backdrop-filter: blur(16px);
+    }
+
+    .map-chip small {
+      opacity: .82;
+    }
+
+    .message-panel {
+      display: grid;
+      align-content: center;
+      gap: 26px;
+      padding: clamp(26px, 5vw, 56px);
+    }
+
+    .message-kicker {
+      margin: 0;
+      color: #9b5639;
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .message-title {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1.08;
+    }
+
+    .dialect {
+      position: relative;
+      margin: 0;
+      padding: 28px;
+      border-radius: var(--radius);
+      color: #3d2a23;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .86), rgba(255, 246, 236, .78));
+      border: 1px solid var(--line);
+      font-size: clamp(19px, 2.6vw, 28px);
+      line-height: 1.62;
+      box-shadow: 0 16px 34px rgba(84, 45, 32, .1);
+    }
+
+    .dialect span,
+    .standard span {
+      display: block;
+    }
+
+    .dialect span + span {
+      margin-top: .08em;
+    }
+
+    .standard {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.86;
+      font-size: 16px;
+    }
+
+    .standard span + span {
+      margin-top: .18em;
+    }
+
+    .mini-note {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .52);
+    }
+
+    .mini-note strong {
+      font-size: 15px;
+    }
+
+    .mini-note span {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .round-button {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .72);
+      cursor: pointer;
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    .round-button:hover {
+      transform: translateY(-2px);
+      background: #fff;
+    }
+
+    .progress {
+      flex: 1 1 180px;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(117, 92, 76, .14);
+    }
+
+    .progress span {
+      display: block;
+      width: 16.66%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width .4s ease;
+    }
+
+    .closing {
+      display: grid;
+      place-items: center;
+      min-height: 60vh;
+      padding: 48px 0 20px;
+      text-align: center;
+    }
+
+    .closing-card {
+      width: min(760px, 100%);
+      padding: clamp(30px, 6vw, 58px);
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .68);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .closing-card h2 {
+      margin: 0 0 18px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.18;
+    }
+
+    .closing-card p {
+      margin: 0 auto;
+      max-width: 590px;
+      color: var(--muted);
+      line-height: 1.95;
+      font-size: 17px;
+    }
+
+    .sparkle-button {
+      margin-top: 26px;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 20px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(233, 80, 109, .24);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 10;
+      width: min(420px, calc(100% - 32px));
+      padding: 14px 16px;
+      border-radius: 18px;
+      color: #fff;
+      background: rgba(54, 34, 28, .88);
+      box-shadow: 0 16px 36px rgba(40, 22, 18, .22);
+      transform: translate(-50%, 120px);
+      transition: transform .34s ease;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 860px) {
+      main {
+        width: min(100% - 24px, 680px);
+        padding-top: 12px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 34px 0 58px;
+      }
+
+      .hero-inner,
+      .message-stage {
+        grid-template-columns: 1fr;
+      }
+
+      .postcard-stack {
+        min-height: 440px;
+      }
+
+      .postcard.front {
+        inset: 0 8px 32px 24px;
+      }
+
+      .postcard.back {
+        inset: 26px 24px 8px 0;
+      }
+
+      .photo-panel,
+      .message-stage {
+        min-height: 430px;
+      }
+
+      .region-tabs {
+        border-radius: 22px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      main {
+        width: calc(100% - 18px);
+      }
+
+      .eyebrow {
+        font-size: 12px;
+      }
+
+      .hero-copy {
+        line-height: 1.75;
+      }
+
+      .postcard-stack {
+        min-height: 365px;
+      }
+
+      .postcard {
+        border-radius: 24px;
+      }
+
+      .photo-panel,
+      .message-stage {
+        min-height: 360px;
+      }
+
+      .postcard img {
+        max-width: min(78%, 330px);
+        max-height: 240px;
+        border-width: 7px;
+        border-radius: 18px;
+      }
+
+      .photo-panel img {
+        max-width: min(82%, 460px);
+        max-height: min(68%, 330px);
+        border-width: 7px;
+        border-radius: 18px;
+      }
+
+      .message-panel {
+        padding: 24px 18px 26px;
+      }
+
+      .dialect {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="petals" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div>
+            <p class="eyebrow">Birthday messages from Japan</p>
+            <h1 id="hero-title">さとみさん、<br>お誕生日おめでとうございます！</h1>
+            <p class="hero-copy">
+              日本各地から、さとみさんへのお祝いメッセージが届いています。
+              今日は少しだけ旅をするように、北から南へ、ゆっくり受け取ってください。
+            </p>
+            <div class="hero-actions">
+              <a class="primary-link" href="#journey">メッセージを見に行く</a>
+              <a class="ghost-link" href="#finale">最後のカードへ</a>
+            </div>
+          </div>
+
+          <div class="postcard-stack" aria-label="お祝いのポストカード">
+            <figure class="postcard back">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbx6oiTuCWZNT9vlwROE5H1cXOHULUX5MHtZudWbAa-w&s=10" alt="長崎の夜景">
+              <figcaption class="postcard-label">
+                <strong>長崎</strong>
+                <span>夜景からのお祝い</span>
+              </figcaption>
+            </figure>
+            <figure class="postcard front">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3zSShOS4Gq-vaOKvoepjrSOQ1qZzA3DNz7mHYQ5Jpog&s=10" alt="宮城の笹かま">
+              <figcaption class="postcard-label">
+                <strong>宮城</strong>
+                <span>笹かまからも届いています</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="journey" id="journey" aria-labelledby="journey-title">
+        <div class="section-head">
+          <h2 id="journey-title">どの地域から開きますか？</h2>
+          <p>
+            <span>地域を選ぶと、写真と方言メッセージが切り替わります。</span>
+          </p>
+        </div>
+
+        <nav class="region-tabs" aria-label="地域を選択">
+          <button class="region-tab active" type="button" data-index="0">北海道</button>
+          <button class="region-tab" type="button" data-index="1">青森</button>
+          <button class="region-tab" type="button" data-index="2">宮城</button>
+          <button class="region-tab" type="button" data-index="3">京都</button>
+          <button class="region-tab" type="button" data-index="4">長崎</button>
+          <button class="region-tab" type="button" data-index="5">沖縄</button>
+        </nav>
+
+        <article class="message-stage" aria-live="polite">
+          <div class="photo-panel" id="photoPanel"></div>
+          <div class="message-panel">
+            <p class="message-kicker" id="regionKicker">Hokkaido</p>
+            <h2 class="message-title" id="regionTitle">北海道から</h2>
+            <p class="dialect" id="dialectMessage">
+              <span>さとみさん、</span>
+              <span>誕生日おめでとうだべさ。</span>
+              <span>今日がなまらいい一日になりますように。</span>
+            </p>
+            <p class="standard" id="standardMessage">
+              <span>寒いところから、あたたかい気持ちを込めて。</span>
+              <span>無理せず、さとみさんらしく笑える一年になりますように。</span>
+            </p>
+            <div class="mini-note">
+              <strong id="noteTitle">北の空から</strong>
+              <span id="noteText">まっすぐで、やさしくて、少し特別。そんな一日を北海道から願っています。</span>
+            </div>
+            <div class="controls">
+              <button class="round-button" type="button" id="prevButton" aria-label="前の地域">←</button>
+              <button class="round-button" type="button" id="nextButton" aria-label="次の地域">→</button>
+              <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="closing" id="finale" aria-labelledby="closing-title">
+        <div class="closing-card">
+          <h2 id="closing-title">さとみさんに、いい一年が届きますように。</h2>
+          <button class="sparkle-button" type="button" id="sparkleButton">もう一度お祝いを受け取る</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status">さとみさん、お誕生日おめでとうございます！</div>
+  </div>
+
+  <script>
+    const regions = [
+      {
+        name: "北海道",
+        roman: "Hokkaido",
+        image: "assets/hokkaido.jpg",
+        alt: "北海道の写真",
+        dialect: "さとみさん、\n誕生日おめでとうだべさ。\n今日がなまらいい一日になりますように。",
+        standard: "寒いところから、あたたかい気持ちを込めて。\n無理せず、さとみさんらしく笑える一年になりますように。",
+        noteTitle: "北の空から",
+        noteText: "まっすぐで、やさしくて、少し特別。そんな一日を北海道から願っています。"
+      },
+      {
+        name: "青森",
+        roman: "Aomori",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYniiUGI8L-1D4nvhKI1Unqp1EGNphMoApqOwt9eTCDg&s=10",
+        alt: "青森の写真",
+        dialect: "さとみさん、\n誕生日おめでとうごす。\nこれからも、\nめごい笑顔でいてけろ。",
+        standard: "青森から、やさしいお祝いをひとつ。\nよく笑って、よく休んで、心地いい一年になりますように。",
+        noteTitle: "りんご色の便り",
+        noteText: "すこし素朴で、あたたかい気持ちをそのまま包んで届けます。"
+      },
+      {
+        name: "宮城",
+        roman: "Miyagi",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3zSShOS4Gq-vaOKvoepjrSOQ1qZzA3DNz7mHYQ5Jpog&s=10",
+        alt: "宮城の笹かま",
+        dialect: "さとみさん、\n誕生日おめでとうござりす。\nいいこといっぱいある\n1年になるといいっちゃね。",
+        standard: "宮城からは、笹かまみたいにやさしくて親しみやすいお祝いを。\n今日もこれからも、楽しいことが増えますように。",
+        noteTitle: "笹かまからも祝福",
+        noteText: "かしこまりすぎず、でもちゃんと特別。宮城らしい温度でお祝いします。"
+      },
+      {
+        name: "京都",
+        roman: "Kyoto",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWUyD7d1oG39z1EGVTzNEzmHCJEvOQO9nO5qylWuklpg&s=10",
+        alt: "京都の風景",
+        dialect: "さとみさん、\nお誕生日おめでとうさんどす。\n今日という日が、\nええ日になりますように。",
+        standard: "京都からは、少し上品に、でも重すぎず。\nさとみさんの毎日に、穏やかな時間が増えていきますように。",
+        noteTitle: "はんなり届く一通",
+        noteText: "静かに華やかで、余韻が残るようなお祝いを京都から。"
+      },
+      {
+        name: "長崎",
+        roman: "Nagasaki",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbx6oiTuCWZNT9vlwROE5H1cXOHULUX5MHtZudWbAa-w&s=10",
+        alt: "長崎の夜景",
+        dialect: "さとみさん、\n誕生日おめでとうございますばい。\nよか一年になりますごと、長崎から願っとるけんね。",
+        standard: "長崎の夜景から、きらっと明るいお祝いを。\nさとみさんにとって、心がほどける瞬間の多い一年になりますように。",
+        noteTitle: "夜景にのせて",
+        noteText: "今年は長崎から。やわらかな光でお祝いします。"
+      },
+      {
+        name: "沖縄",
+        roman: "Okinawa",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjC83Vaz75Qe1vNcqCw0YgMLeXPBFnCkfulXZkCEjYrg&s=10",
+        alt: "沖縄の風景",
+        dialect: "さとみさん、\n誕生日おめでとうさぁ。\nこれからの1年も、\nなんくるないさーで楽しくいこうね。",
+        standard: "沖縄からは、明るく軽やかなメッセージを。\n肩の力を抜いて、気持ちよく過ごせる一年になりますように。",
+        noteTitle: "南風のお祝い",
+        noteText: "最後は明るく、あたたかく。今日の笑顔が長く続きますように。"
+      }
+    ];
+
+    const photoPanel = document.querySelector("#photoPanel");
+    const tabs = [...document.querySelectorAll(".region-tab")];
+    const regionKicker = document.querySelector("#regionKicker");
+    const regionTitle = document.querySelector("#regionTitle");
+    const dialectMessage = document.querySelector("#dialectMessage");
+    const standardMessage = document.querySelector("#standardMessage");
+    const noteTitle = document.querySelector("#noteTitle");
+    const noteText = document.querySelector("#noteText");
+    const progressBar = document.querySelector("#progressBar");
+    const prevButton = document.querySelector("#prevButton");
+    const nextButton = document.querySelector("#nextButton");
+    const toast = document.querySelector("#toast");
+    const sparkleButton = document.querySelector("#sparkleButton");
+    let currentIndex = 0;
+    let toastTimer;
+
+    regions.forEach((region, index) => {
+      const image = new Image();
+      image.src = region.image;
+      image.alt = region.alt;
+      if (index === 0) image.classList.add("active");
+      photoPanel.appendChild(image);
+    });
+
+    const images = [...photoPanel.querySelectorAll("img")];
+    const mapChip = document.createElement("div");
+    mapChip.className = "map-chip";
+    photoPanel.appendChild(mapChip);
+
+    function renderLines(element, text) {
+      element.replaceChildren(
+        ...text.split("\n").map((line) => {
+          const span = document.createElement("span");
+          span.textContent = line;
+          return span;
+        })
+      );
+    }
+
+    function setRegion(index) {
+      currentIndex = (index + regions.length) % regions.length;
+      const region = regions[currentIndex];
+
+      tabs.forEach((tab, tabIndex) => {
+        const isActive = tabIndex === currentIndex;
+        tab.classList.toggle("active", isActive);
+        tab.setAttribute("aria-selected", String(isActive));
+      });
+
+      images.forEach((image, imageIndex) => {
+        image.classList.toggle("active", imageIndex === currentIndex);
+      });
+
+      regionKicker.textContent = region.roman;
+      regionTitle.textContent = `${region.name}から`;
+      renderLines(dialectMessage, region.dialect);
+      renderLines(standardMessage, region.standard);
+      noteTitle.textContent = region.noteTitle;
+      noteText.textContent = region.noteText;
+      mapChip.innerHTML = `<strong>${region.name}</strong><small>${region.roman} message for Satomi</small>`;
+      progressBar.style.width = `${((currentIndex + 1) / regions.length) * 100}%`;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2400);
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        setRegion(Number(tab.dataset.index));
+        document.querySelector(".message-stage").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+
+    prevButton.addEventListener("click", () => setRegion(currentIndex - 1));
+    nextButton.addEventListener("click", () => setRegion(currentIndex + 1));
+
+    sparkleButton.addEventListener("click", () => {
+      setRegion(0);
+      showToast("日本各地から、もう一度お祝いが届きました。");
+      document.querySelector("#journey").scrollIntoView({ behavior: "smooth" });
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") setRegion(currentIndex - 1);
+      if (event.key === "ArrowRight") setRegion(currentIndex + 1);
+    });
+
+    setRegion(0);
+    window.setTimeout(() => showToast("さとみさん、お誕生日おめでとうございます！"), 900);
+  </script>
+</body>
+</html>
